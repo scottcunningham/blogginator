@@ -63,7 +63,7 @@
           <ul class=entries>
           {% for entry in entries %}
             <div class="w-container">
-                <li><h2><a href="posts/{{entry.idno}}">{{ entry.title }}</a></h2>
+                <li><h2><a href="posts/{{entry.post_id}}">{{ entry.title }}</a></h2>
               {{ entry.text|safe }}
           {% else %}
               <li><em>No blog posts. :( Add one!</em>

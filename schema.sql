@@ -1,6 +1,7 @@
-drop table if exists entries;
-create table entries (
-  id integer primary key autoincrement,
+drop table if exists posts;
+create table posts (
+  post_id integer primary key autoincrement,
+  date integer not null,
   title text not null,
-  text text not null
+  content text not null
 );

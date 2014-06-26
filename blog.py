@@ -1,14 +1,20 @@
-import sqlite3
+import config
+import hashlib
+import sqlalchemy
+
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
-import hashlib
+from sqlalchemy.orm import sessionmaker
+from populate_db import Post, populate_db
 
-# configuration
-DATABASE = 'db.db'
-DEBUG = True
-SECRET_KEY = 'development key'
 
+# Import configuration
+DATABASE = config.DATABASE_FILE
+DEBUG = config.DEBUG
+SECRET_KEY = config.SECRET_KEY
+
+# Boiler-plate
 app = Flask(__name__)
 app.config.from_object(__name__)
 
@@ -18,18 +24,15 @@ def hash_password(password):
 
 
 def check_login(username, password):
-    (username, real_password) = query_db(
-        "select * from users where username=='" + username + "'")[0]
-    password_hash = hash_password(password)
-    if real_password == password_hash:
+    user = g.session.query(Post).filter_by(username=username).first()
+
+    if not user:
+        return False
+
+    if user.password == hash_password(password):
         return True
     else:
         return False
-
-
-def query_db(query):
-    cur = g.db.execute(query)
-    return cur.fetchall()
 
 
 def connect_db():
@@ -37,49 +40,51 @@ def connect_db():
 
 
 def init_db():
-    with closing(connect_db()) as db:
-        with app.open_resource('schema.sql', mode='r') as f:
-            db.cursor().executescript(f.read())
-        db.commit()
+    populate_db(app.config['DATABASE'])
 
 
 @app.before_request
 def before_request():
-    g.db = connect_db()
+    g.engine = sqlalchemy.create_engine("sqlite:///{}".format(app.config['DATABASE']))
+    g.Session = sessionmaker(bind=g.engine)
+    g.session = g.Session()
 
 
 @app.teardown_request
 def teardown_request(exception):
-    db = getattr(g, 'db', None)
-    if db is not None:
-        db.close()
+    pass
 
 
 @app.route('/', methods=['GET'])
 def show_entries():
-    cur = g.db.execute('select id, title, text from entries order by id desc')
-    entries = [dict(title=row[1], text=row[2], idno=row[0]) for row in
-               cur.fetchall()]
-    print entries
+    posts = g.session.query(Post)
+    print posts
     #return render_template('show_entries.html', entries=entries)
-    return render_template('index.html', entries=entries)
+    return render_template('index.html', entries=posts)
 
 
 @app.route('/add', methods=['POST'])
 def add_entry():
     if not session.get('logged_in'):
         abort(401)
-    g.db.execute('insert into entries (title, text) values (?, ?)',
-                 [request.form['title'], request.form['text']])
-    g.db.commit()
-    flash('New entry was successfully posted')
+
+    title, content = request.form['title'], request.form['text']
+
+    insert = g.posts.insert()
+    insert.execute(date=int(time.time()), title=title, content=content)
+
     return redirect(url_for('show_entries'))
 
 
-@app.route('/posts/<idno>', methods=['GET'])
-def show_post(idno):
-    post = query_db('select * from entries where id=' + idno)[0]
-    return render_template('post.html', idno=idno, title=post[1], text=post[2])
+@app.route('/posts/<post_id>', methods=['GET'])
+def show_post(post_id):
+
+    post = g.session.query(Post).filter_by(post_id=post_id).first()
+
+    if not post:
+        abort(404)
+
+    return render_template('post.html', post_id=post.post_id, title=post.title, text=post.content)
 
 
 @app.route('/login', methods=['GET', 'POST'])
