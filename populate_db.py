@@ -9,6 +9,19 @@ DEFAULT_DB_NAME = "db.db"
 Base = declarative_base()
 
 
+class User(Base):
+    __tablename__ = "users"
+
+    user_id = Column(Integer, primary_key=True)
+    username = Column(String)
+    real_name = Column(String)
+    password_hash = Column(String)
+
+    def __repr__(self):
+        return "<User(user_id={}, username={}, real_name={}, password_hash={})" \
+                .format(user_id, username, real_name, password_hash)
+
+
 class Post(Base):
     __tablename__ = "posts"
 
@@ -33,6 +46,11 @@ def populate_db(filename):
     default_post = Post(post_id=0, date=int(time()), title="Hello World",
             content="Welcome :)")
     session.add(default_post)
+
+    user = User(user_id=0, username='root', real_name='Root Fairy',
+            password_hash='c8fed00eb2e87f1cee8e90ebbe870c190ac3848c  -')
+    session.add(user)
+
     session.commit()
 
 
