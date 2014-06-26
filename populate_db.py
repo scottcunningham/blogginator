@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from time import time
-
+from hashlib import sha1
 
 DEFAULT_DB_NAME = "db.db"
 
@@ -48,7 +48,7 @@ def populate_db(filename):
     session.add(default_post)
 
     user = User(user_id=0, username='root', real_name='Root Fairy',
-            password_hash='c8fed00eb2e87f1cee8e90ebbe870c190ac3848c  -')
+            password_hash=sha1('password').hexdigest())
     session.add(user)
 
     session.commit()

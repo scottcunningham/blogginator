@@ -6,7 +6,7 @@ from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
 from sqlalchemy.orm import sessionmaker
-from populate_db import Post, populate_db
+from populate_db import User, Post, populate_db
 
 
 # Import configuration
@@ -20,16 +20,16 @@ app.config.from_object(__name__)
 
 
 def hash_password(password):
-    return hashlib.sha512(password).hexdigest()
+    return hashlib.sha1(password).hexdigest()
 
 
 def check_login(username, password):
-    user = g.session.query(Post).filter_by(username=username).first()
+    user = g.session.query(User).filter_by(username=username).first()
 
     if not user:
         return False
 
-    if user.password == hash_password(password):
+    if user.password_hash == hash_password(password):
         return True
     else:
         return False
