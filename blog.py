@@ -60,7 +60,7 @@ def show_entries():
     posts = g.session.query(Post)
     print posts
     #return render_template('show_entries.html', entries=entries)
-    return render_template('index.html', entries=posts)
+    return render_template('posts.html', entries=posts)
 
 
 @app.route('/add', methods=['POST'])
@@ -73,6 +73,7 @@ def add_entry():
     insert = g.posts.insert()
     insert.execute(date=int(time.time()), title=title, content=content)
 
+    flash("Added entry!")
     return redirect(url_for('show_entries'))
 
 

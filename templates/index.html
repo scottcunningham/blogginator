@@ -11,7 +11,7 @@
 
         <div id="posts">
             <!-- Notification messages. -->
-            <div class="w-container">
+            <div>
                 {% for message in get_flashed_messages() %}
                 <div class=flash>{{ message }}</div>
                 {% endfor %}
@@ -25,7 +25,6 @@
               {% endif %}
 
             <!-- If logged in, show "Add Post" button. -->
-            {% block body %}
             {% if session.logged_in %}
             <button id=show_add_item>Add post</button>
             <div id="add-post">
@@ -41,18 +40,9 @@
             </div>
             {% endif %}
 
-            <!-- Show blog posts. -->
-            <ul class=entries>
-            {% for entry in entries %}
-                <div class="w-container">
-                    <li><h2><a href="posts/{{entry.post_id}}">{{ entry.title }}</a></h2>
-                    {{ entry.text|safe }}
-                    {% else %}
-                    <li><em>No blog posts. :( Add one!</em>
-                </div>
-                {% endfor %}
-            </ul>
-            {% endblock %}   
+            {% block body %}
+
+            {% endblock %}
         </div>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
