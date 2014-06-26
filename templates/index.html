@@ -1,89 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>BLOGGINATOR</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/webflow.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/blogscottcme.webflow.css') }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
-    <script>
-      WebFont.load({
-        google: {
-          families: ["Merriweather:300,400,700,900","Montserrat:400,700","Bitter:400,700"]
-        }
-      });
-    </script>
-  </head><body>
-  <header class="section">
-    <div class="w-container">
-      <div class="w-row">
-        <div class="w-col w-col-4 w-clearfix subfooter-left">
-            <img class="logo-in-header" src="{{ url_for('static', filename='images/logo.png') }}" width="25px" alt="logo">
-          <div class="app-name">BLOGGINATOR</div>
-        </div>
-        <div class="w-col w-col-8 nav-column">
-            <a class="nav-link" href="wiki" target="_self">WIKI</a>
-            <a class="nav-link" id="contact" href="#" target="_self">CONTACT</a>
-            {% if session.logged_in %}
-            <a class="nav-link" href="{{ url_for('logout') }}">LOGOUT</a>
-            {% else %}
-            <a class="nav-link" href="{{ url_for('login') }}" target="_self">LOGIN</a>
-            {% endif %}
-        </div>
-      </div>
-    </div>
-  </header>
-  <div class="section hero">
-  </div>
-    <div id="posts">
-      <div class="section grey" id="page-nav-display">
-        <div class="w-container">
-            {% for message in get_flashed_messages() %}
-             <div class=flash>{{ message }}</div>
-            {% endfor %}
-        </div>
-        <div class="w-container">
-          {% block body %}
-          {% if session.logged_in %}
-          <button id=show_add_item>Add post</button>
-          <div id="add-post">
-            <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
-              <dl>
-                <dt>Title:
-                <dd><input type=text size=30 name=title>
-                <dt>Text:
-                <dd><textarea name=text rows=5 cols=40></textarea>
-                <dd><input type=submit value=Share>
-              </dl>
-            </form>
-          </div>
-          {% endif %}
-          <ul class=entries>
-          {% for entry in entries %}
+    <head>
+        <title>BLOGGINATOR</title>
+    </head>
+
+    <body>
+        <header>
+            <div class="app-name">BLOGGINATOR</div>
+        </header>
+
+        <div id="posts">
+            <!-- Notification messages. -->
             <div class="w-container">
-                <li><h2><a href="posts/{{entry.post_id}}">{{ entry.title }}</a></h2>
-              {{ entry.text|safe }}
-          {% else %}
-              <li><em>No blog posts. :( Add one!</em>
+                {% for message in get_flashed_messages() %}
+                <div class=flash>{{ message }}</div>
+                {% endfor %}
             </div>
-          {% endfor %}
-          </ul>
-          {% endblock %}   
+
+            <!-- Show log in/log out button. -->
+            {% if not session.logged_in %}
+            <a href="{{ url_for('login') }}">log in</a>
+            {% else %}
+            <a href="{{ url_for('logout') }}">log out</a>
+              {% endif %}
+
+            <!-- If logged in, show "Add Post" button. -->
+            {% block body %}
+            {% if session.logged_in %}
+            <button id=show_add_item>Add post</button>
+            <div id="add-post">
+                <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+                    <dl>
+                        <dt>Title:
+                        <dd><input type=text size=30 name=title>
+                        <dt>Text:
+                        <dd><textarea name=text rows=5 cols=40></textarea>
+                        <dd><input type=submit value=Share>
+                    </dl>
+                </form>
+            </div>
+            {% endif %}
+
+            <!-- Show blog posts. -->
+            <ul class=entries>
+            {% for entry in entries %}
+                <div class="w-container">
+                    <li><h2><a href="posts/{{entry.post_id}}">{{ entry.title }}</a></h2>
+                    {{ entry.text|safe }}
+                    {% else %}
+                    <li><em>No blog posts. :( Add one!</em>
+                </div>
+                {% endfor %}
+            </ul>
+            {% endblock %}   
         </div>
-      </div>
-  </div>
-  <div id="contact-details">
-    <div class="w-container">
-        Phone: 12345
-    </div>
-  </div>
-  <div class="section grey footer">
-      <img class="logo-in-footer" src="{{ url_for('static', filename='images/logo.png') }}" width="25px" alt="logo">
-  </div>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
-<script
-</body>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+    </body>
+
 </html>
