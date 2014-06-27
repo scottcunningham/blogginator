@@ -100,7 +100,7 @@ def show_post(post_id):
     return render_template('post.html', post_id=post.post_id, title=post.title, text=post.content)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
     error = None
     if request.method == 'POST':
@@ -112,10 +112,7 @@ def login():
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('show_entries'))
-    else:
-        return redirect(url_for('show_entries'))
-    flash("You were logged in!")
-    return redirect(url_for('show_entries', error=error))
+    return redirect(url_for('show_entries'))
 
 
 @app.route('/logout')
