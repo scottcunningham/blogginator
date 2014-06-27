@@ -61,7 +61,14 @@ a:hover{text-decoration:underline;}
 a code,a:link code,a:visited code{color:#4183c4;}
 h2,h3{margin:1em 0;}
 h1,h2,h3,h4,h5,h6{border:0;}
-h1{font-family: 'Press Start 2P', Sans;font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}
+h1{
+    font-family: 'Press Start 2P', Sans;
+    font-size:170%;
+    border-top:4px solid #aaa;
+    padding-top:4em;
+    margin-top:1.5em;
+    padding-bottom:2em;
+}
 h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
 h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
 h3{margin-top:1em;}
@@ -90,15 +97,6 @@ dd{margin-left:2em;margin-bottom:1em;}
     display: inline;
 }
 
-!important .login-button ul li {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    text-align: center;
-    padding-right: 0px;
-    display: inline-block;
-}
-
 #navcontainer ul li { display: inline; }
 
 #navcontainer ul li a 
@@ -114,4 +112,20 @@ dd{margin-left:2em;margin-bottom:1em;}
     color: #fff;
     background-color: #369;
 }
+
+#login-button {
+    display: inline-block !important;
+}
+
+#add-post-content
+{
+    height:30%;
+    width:80%;
+}
+
+#add-post-title
+{
+    width:80%;
+}
+
 </style>

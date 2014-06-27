@@ -55,8 +55,12 @@
 
                 <div id="add-post-form">
                     <form action="add-post">
-                        <p>Title: <input type="text" name="firstname"></p>
-                        <p>Content: <input type="text" name="lastname"></p>
+                        <dl>
+                            <dt>Title:</dt>
+                            <dd><input id="add-post-title" type="text" name="title"></dd>
+                            <dt>Content: </dt>
+                            <dd><input id="add-post-content" type="text" name="content"></dd>
+                        </dl>
                     </form>
                 </div>
 
@@ -66,11 +70,11 @@
                     <aside>
                         <form action="{{ url_for('login') }}" method=post>
                             <dl>
-                            <dt>Username:</dt>
-                            <dd><input type=text name=username></dd>
-                            <dt>Password:</dt>
-                            <dd><input type=password name=password></dd>
-                            <dd><input type=submit value=Login></dd>
+                                <dt>Username:</dt>
+                                <dd><input type=text name=username></dd>
+                                <dt>Password:</dt>
+                                <dd><input type=password name=password></dd>
+                                <dd><input type=submit value=Login></dd>
                             </dl>
                         </form>
                     </aside>
