@@ -58,16 +58,7 @@ def teardown_request(exception):
     pass
 
 
-@app.route('/test', methods=['GET'])
-def show_entries2():
-    posts = g.session.query(Post).order_by(Post.date.desc())
-    print posts
-    #return render_template('show_entries.html', entries=entries)
-    return render_template('indexnew.html', entries=posts)
-
-
-
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def show_entries():
     posts = g.session.query(Post).order_by(Post.date.desc())
     print posts
@@ -102,16 +93,14 @@ def show_post(post_id):
 
 @app.route('/login', methods=['POST'])
 def login():
-    error = None
-    if request.method == 'POST':
-        print request.form['username'], request.form['password']
-        if not (check_login(request.form['username'],
-                request.form['password'])):
-            error = 'Invalid username or password'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in')
-            return redirect(url_for('show_entries'))
+    print request.form['username'], request.form['password']
+    if (check_login(request.form['username'],
+            request.form['password'])):
+        session['logged_in'] = True
+        flash('You were logged in')
+    else:
+        flash('Error: Invalid username or password')
+
     return redirect(url_for('show_entries'))
 
 
