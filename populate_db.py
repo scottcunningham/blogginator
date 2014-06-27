@@ -4,35 +4,11 @@ from sqlalchemy.orm import sessionmaker
 from time import time
 from hashlib import sha1
 
+from model.user import User
+from model.post import Post
+
+
 DEFAULT_DB_NAME = "db.db"
-
-Base = declarative_base()
-
-
-class User(Base):
-    __tablename__ = "users"
-
-    user_id = Column(Integer, primary_key=True)
-    username = Column(String)
-    real_name = Column(String)
-    password_hash = Column(String)
-
-    def __repr__(self):
-        return "<User(user_id={}, username={}, real_name={}, password_hash={})" \
-                .format(user_id, username, real_name, password_hash)
-
-
-class Post(Base):
-    __tablename__ = "posts"
-
-    post_id = Column(Integer, primary_key=True)
-    date = Column(Integer)
-    title = Column(String)
-    content = Column(String)
-
-    def __repr__(self):
-        return "<Post(post_id={}, date={}, title={}, content={}>)".format(
-                post_id, date, title, content)
 
 
 def populate_db(filename):
