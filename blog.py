@@ -7,7 +7,7 @@ from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
 from sqlalchemy.orm import sessionmaker
 from populate_db import User, Post, populate_db
-
+from time import time
 
 # Import configuration
 DATABASE = config.DATABASE_FILE
@@ -57,7 +57,7 @@ def teardown_request(exception):
 
 @app.route('/', methods=['GET'])
 def show_entries():
-    posts = g.session.query(Post)
+    posts = g.session.query(Post).order_by(Post.date.desc())
     print posts
     #return render_template('show_entries.html', entries=entries)
     return render_template('posts.html', entries=posts)
@@ -68,10 +68,10 @@ def add_entry():
     if not session.get('logged_in'):
         abort(401)
 
-    title, content = request.form['title'], request.form['text']
+    post = Post(title=request.form['title'], content=request.form['text'], date=time())
 
-    insert = g.posts.insert()
-    insert.execute(date=int(time.time()), title=title, content=content)
+    g.session.add(post)
+    g.session.commit()
 
     flash("Added entry!")
     return redirect(url_for('show_entries'))
