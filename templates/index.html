@@ -24,14 +24,14 @@
                         </li>
 
                         <li>
-                            <div id="login-button">
                             <!-- Show log in/log out button. -->
                             {% if not session.logged_in %}
+                            <div id="login-button">
                             <a href="#">Log in</a>
+                            </div>
                             {% else %}
                             <a href="{{ url_for('logout') }}">Log out</a>
                             {% endif %}
-                            </div>
                         </li>
                         
                         {% if session.logged_in %}
