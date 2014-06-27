@@ -4,7 +4,12 @@ $(document).ready(function() {
 
     $("#show_add_item").click(function() {
         $("#add-post").toggle();
-        console.log("a");
+    });
+
+    $("#login-form").hide();
+    $("#login-button").click(function() {
+        $("#login-form").toggle();
+        console.log('a');
     });
 
     $('#contact').click(function() {
