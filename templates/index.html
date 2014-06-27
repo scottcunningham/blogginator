@@ -16,7 +16,7 @@
                 <div id="navcontainer">
                     <ul>
                         <li>
-                            <a href="#" id="current" id="active">All Posts</a>
+                            <a href="#" id="current" id="active">Blog</a>
                         </li>
 
                         <li>
@@ -29,10 +29,21 @@
                             {% if not session.logged_in %}
                             <a href="#">Log in</a>
                             {% else %}
-                            <a href="{{ url_for('logout') }}">log out</a>
+                            <a href="{{ url_for('logout') }}">Log out</a>
                             {% endif %}
                             </div>
                         </li>
+                        
+                        {% if session.logged_in %}
+                        <li id="add-post">
+                            <div id="add-post-button">
+                                <a href="#">New post</a>
+                            </div>
+                        </li>
+                        {% endif %}
+
+
+
                     </ul>
                 </div>
         </div>
@@ -47,25 +58,6 @@
                 {% endfor %}
                 </div>
 
-                {% if session.logged_in %}
-
-                <div id="add-post-button">
-                    <a href="#">Add Post</a>
-                </div>
-
-                <div id="add-post-form">
-                    <form action="add-post">
-                        <dl>
-                            <dt>Title:</dt>
-                            <dd><input id="add-post-title" type="text" name="title"></dd>
-                            <dt>Content: </dt>
-                            <dd><input id="add-post-content" type="text" name="content"></dd>
-                        </dl>
-                    </form>
-                </div>
-
-                {% endif %}
-
                 <div id="login-form">
                     <aside>
                         <form action="{{ url_for('login') }}" method=post>
@@ -78,6 +70,17 @@
                             </dl>
                         </form>
                     </aside>
+                </div>
+
+                <div id="add-post-form">
+                    <form action="add-post">
+                        <dl>
+                            <dt>Title:</dt>
+                            <dd><input id="add-post-title" type="text" name="title"></dd>
+                            <dt>Content: </dt>
+                            <dd><input id="add-post-content" type="text" name="content"></dd>
+                        </dl>
+                    </form>
                 </div>
 
                 <div id="error-notifications">
