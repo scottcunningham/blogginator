@@ -14,7 +14,7 @@
         <div class="header-container">
                 <h1 class="title">s c o t t c</h1>
                 <div id="navcontainer">
-                    <ul id="navlist">
+                    <ul>
                         <li>
                             <a href="#" id="current" id="active">All Posts</a>
                         </li>
@@ -24,14 +24,14 @@
                         </li>
 
                         <li>
+                            <div id="login-button">
                             <!-- Show log in/log out button. -->
                             {% if not session.logged_in %}
-                            <div id="login-button">
-                                <a href="#">Log in</a>
-                            </div>
+                            <a href="#">Log in</a>
                             {% else %}
                             <a href="{{ url_for('logout') }}">log out</a>
                             {% endif %}
+                            </div>
                         </li>
                     </ul>
                 </div>
