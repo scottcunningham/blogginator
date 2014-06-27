@@ -2,14 +2,30 @@
 <html>
     <head>
         <title>BLOGGINATOR</title>
+        <meta charset="utf-8">
     </head>
 
     <body>
-        <header>
-            <div class="app-name">BLOGGINATOR</div>
-        </header>
+        <div class="container">
+            <h1><a href="#">BLOGGINATOR</a></h1>
 
-        <div id="posts">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <ul class="nav">
+                          <li class="active"><a href="#">All Posts</a></li>
+                          <li><a href="#">About</a></li>
+                          <!-- Show log in/log out button. -->
+                          {% if not session.logged_in %}
+                          <li><a href="{{ url_for('login') }}">log in</a></li>
+                          {% else %}
+                          <li><a href="{{ url_for('logout') }}">log out</a></li>
+                          {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <!-- Notification messages. -->
             <div>
                 {% for message in get_flashed_messages() %}
@@ -17,16 +33,10 @@
                 {% endfor %}
             </div>
 
-            <!-- Show log in/log out button. -->
-            {% if not session.logged_in %}
-            <a href="{{ url_for('login') }}">log in</a>
-            {% else %}
-            <a href="{{ url_for('logout') }}">log out</a>
-              {% endif %}
-
             <!-- If logged in, show "Add Post" button. -->
             {% if session.logged_in %}
-            <button id=show_add_item>Add post</button>
+            <a href="#" id=show_add_item class="btn btn-large btn-success">Add post</a>
+            <!--<button id=show_add_item>Add post</button> -->
             <div id="add-post">
                 <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
                     <dl>
@@ -46,6 +56,15 @@
         </div>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+
+        <!-- Bootstrap -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
     </body>
 
 </html>

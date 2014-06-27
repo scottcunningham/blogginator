@@ -4,13 +4,15 @@
 <!-- Show blog posts. -->
 <ul class=entries>
 {% for entry in entries %}
-    <div class="w-container">
-        <li><h2><a href="posts/{{entry.post_id}}">{{ entry.title }}</a></h2>
-        {{ entry.text|safe }}
-        {% else %}
-        <li><em>No blog posts. :( Add one!</em>
+    <div class="row">
+        <div class="span4">
+            <li><h2><a class="muted text-center" href="posts/{{entry.post_id}}">{{ entry.title }}</a></h2>
+            {{ entry.text|safe }}
+            {% else %}
+            <li><em>No blog posts. :( Add one!</em>
+        </div>
     </div>
     {% endfor %}
-</ul> 
+</ul>
 
 {% endblock %}
