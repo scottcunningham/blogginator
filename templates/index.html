@@ -2,15 +2,9 @@
 <html class="no-js">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="stylesheet" href={{url_for('static', filename="css/normalize.min.css")}}>
+        <title>s c o t t</title>
+        <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'/>
         <link rel="stylesheet" href={{url_for('static', filename="css/main.css")}}>
-
-        <script src={{url_for('static', filename="js/vendor/modernizr-2.6.2.min.js")}}></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -18,13 +12,13 @@
         <![endif]-->
 
         <div class="header-container">
-            <header class="wrapper clearfix">
-                <h1 class="title">Blog Title</h1>
-                <nav>
-                    <ul>
+                <h1 class="title">s c o t t c</h1>
+                <div id="navcontainer">
+                    <ul id="navlist">
                         <li>
-                            <a href="#">All Posts</a>
+                            <a href="#" id="current" id="active">All Posts</a>
                         </li>
+
                         <li>
                             <a href="#">About</a>
                         </li>
@@ -40,8 +34,7 @@
                             {% endif %}
                         </li>
                     </ul>
-                </nav>
-            </header>
+                </div>
         </div>
 
         <div class="main-container">
@@ -98,14 +91,13 @@
 
         <div class="footer-container">
             <footer class="wrapper">
-                <h3>footer</h3>
+                <h3>Scott Cunningham, 2014</h3>
             </footer>
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write(<script src={{url_for('static', filename="js/vendor/jquery-1.11.0.min.js")}}></script>
 
-        <script src={{url_for('static', filename="js/plugins.js")}}></script>
         <script src={{url_for('static', filename="js/main.js")}}></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
     </body>

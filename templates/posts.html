@@ -8,13 +8,11 @@
 {% endif %}
 
 {% for entry in entries %}
-<article>
-    <header>
-        <h1><a href="{{idno}}">{{ entry.title }}</a></h1>
-    </header>
-    <section>
+<div class="post">
+    <h2><a href="{{idno}}">{{ entry.title }}</a></h2>  
+    <div class="content">
     	<p> {{ entry.content|safe }} </p>
-    </section>
+    </div class="content">
     <footer>
         <h4>Tags</h4>
         <small>nothing to see here.</small>
