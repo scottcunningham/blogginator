@@ -1,18 +1,25 @@
-{% extends "index.html" %}
+{% extends "indexnew.html" %}
 
 {% block body %}
 <!-- Show blog posts. -->
-<ul class=entries>
+
+{% if not entries %}
+<li><em>No blog posts. :( Add one!</em>
+{% endif %}
+
 {% for entry in entries %}
-    <div class="row">
-        <div class="span4">
-            <li><h2><a class="muted text-center" href="posts/{{entry.post_id}}">{{ entry.title }}</a></h2>
-            {{ entry.text|safe }}
-            {% else %}
-            <li><em>No blog posts. :( Add one!</em>
-        </div>
-    </div>
-    {% endfor %}
-</ul>
+<article>
+    <header>
+        <h1><a href="{{idno}}">{{ entry.title }}</a></h1>
+    </header>
+    <section>
+    	<p> {{ entry.content|safe }} </p>
+    </section>
+    <footer>
+        <h4>Tags</h4>
+        <small>nothing to see here.</small>
+    </footer>
+</article>
+{% endfor %}
 
 {% endblock %}

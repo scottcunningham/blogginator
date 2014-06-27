@@ -58,6 +58,15 @@ def teardown_request(exception):
     pass
 
 
+@app.route('/test', methods=['GET'])
+def show_entries2():
+    posts = g.session.query(Post).order_by(Post.date.desc())
+    print posts
+    #return render_template('show_entries.html', entries=entries)
+    return render_template('indexnew.html', entries=posts)
+
+
+
 @app.route('/', methods=['GET'])
 def show_entries():
     posts = g.session.query(Post).order_by(Post.date.desc())
