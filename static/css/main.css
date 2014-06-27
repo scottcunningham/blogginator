@@ -4,7 +4,6 @@ body {
 	font:13.34px helvetica,arial,freesans,clean,sans-serif;
 	color:white;
 	line-height:1.4em;
-	background: radial-gradient(black 15%, transparent 16%) 0 0, radial-gradient(black 120%, transparent 16%) 8px 8px, radial-gradient(rgba(255,255,255    ,.1) 120%, transparent 20%) 0 1px, radial-gradient(rgba(255,255,255,.1) 120%, transparent 20%) 8px 9px; background-color:#282828; background-size:16px 16px;
 	padding: 0.7em;
 }
 p {
@@ -67,7 +66,7 @@ h1{
     border-top:4px solid #aaa;
     padding-top:4em;
     margin-top:1.5em;
-    padding-bottom:2em;
+    padding-bottom:0.4em;
 }
 h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
 h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
@@ -130,6 +129,10 @@ dd{margin-left:2em;margin-bottom:1em;}
 #add-post-title
 {
     width:80%;
+}
+
+body {
+    background: #282828;
 }
 
 </style>
