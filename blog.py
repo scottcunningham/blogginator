@@ -6,8 +6,11 @@ from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
 from sqlalchemy.orm import sessionmaker
-from populate_db import User, Post, populate_db
 from time import time
+
+from model.user import User
+from model.post import Post
+
 
 # Import configuration
 DATABASE = config.DATABASE_FILE
