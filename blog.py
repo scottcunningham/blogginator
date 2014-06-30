@@ -72,7 +72,12 @@ def add_entry():
         abort(401)
 
     html_content = markdown(request.form['content'])
-    post = Post(title=request.form['title'], content=html_content, date=time())
+
+    title = 'No title'
+    if request.form['title'] is not "":
+        title = request.form['title']
+
+    post = Post(title=title, content=html_content, date=time())
 
     g.session.add(post)
     g.session.commit()
