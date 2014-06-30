@@ -73,15 +73,18 @@
                 </div>
 
                 <div id="add-post-form">
-                    <form action="add-post">
+                    <form action="{{url_for('add_entry')}}" method="post">
                         <dl>
                             <dt>Title:</dt>
                             <dd><input id="add-post-title" type="text" name="title"></dd>
                             <dt>Content: </dt>
                             <dd>
-                                <textarea rows="4" cols="50" id="add-post-content" type="text" name="content"></textarea>
+                                <textarea id="markdown" id="add-post-content" cols="80" rows="20" name="content">
+                                        ...markdown stuff...
+                                        </textarea>
                             </dd>
                         </dl>
+                        <input type="submit" value="Add Post" class="submitButton">
                     </form>
                 </div>
 
@@ -107,7 +110,9 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write(<script src={{url_for('static', filename="js/vendor/jquery-1.11.0.min.js")}}></script>
 
-        <script src={{url_for('static', filename="js/main.js")}}></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+        <script src='{{url_for('static', filename="js/main.js")}}'></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/markitup/jquery.markitup.js')}}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/markitup/markdown-set.js')}}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js')}}"></script>
     </body>
 </html>

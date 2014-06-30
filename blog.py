@@ -5,6 +5,7 @@ import sqlalchemy
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
+from markdown import markdown
 from sqlalchemy.orm import sessionmaker
 from time import time
 
@@ -61,7 +62,6 @@ def teardown_request(exception):
 @app.route('/', methods=['GET', 'POST'])
 def show_entries():
     posts = g.session.query(Post).order_by(Post.date.desc())
-    print posts
     #return render_template('show_entries.html', entries=entries)
     return render_template('posts.html', entries=posts)
 
@@ -71,7 +71,8 @@ def add_entry():
     if not session.get('logged_in'):
         abort(401)
 
-    post = Post(title=request.form['title'], content=request.form['text'], date=time())
+    html_content = markdown(request.form['content'])
+    post = Post(title=request.form['title'], content=html_content, date=time())
 
     g.session.add(post)
     g.session.commit()
@@ -93,7 +94,6 @@ def show_post(post_id):
 
 @app.route('/login', methods=['POST'])
 def login():
-    print request.form['username'], request.form['password']
     if (check_login(request.form['username'],
             request.form['password'])):
         session['logged_in'] = True

@@ -18,4 +18,6 @@ $(document).ready(function() {
        console.log("a");
        $("#contact-details").show();
     });
+
+    $('#markdown').markItUp(myMarkdownSettings);
 });

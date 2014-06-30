@@ -135,4 +135,22 @@ body {
     background: #282828;
 }
 
+.markItUpButton {
+    display: inline-block !Important;
+}
+
+.markItUpSeparator {
+    display: inline-block !important;
+}
+
+.markItUp ul li {
+    display:inline;
+    padding-right:10px;
+    padding-bottom:10px;
+    font-weight: bold;
+    content:"  ";
+    position:relative;
+    height:1px;
+}
+
 </style>
