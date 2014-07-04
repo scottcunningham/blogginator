@@ -13,8 +13,6 @@ from model.user import User
 from model.post import Post
 
 
-
-
 # Boiler-plate
 app = Flask(__name__)
 app.config.from_object('config')
@@ -46,7 +44,8 @@ def init_db():
 
 @app.before_request
 def before_request():
-    g.engine = sqlalchemy.create_engine("sqlite:///{}".format(app.config['DATABASE']))
+    g.engine = sqlalchemy.create_engine("sqlite:///{}".format(
+        app.config['DATABASE']))
     g.Session = sessionmaker(bind=g.engine)
     g.session = g.Session()
 
@@ -91,13 +90,14 @@ def show_post(post_id):
     if not post:
         abort(404)
 
-    return render_template('post.html', post_id=post.post_id, title=post.title, text=post.content)
+    return render_template('post.html', post_id=post.post_id, title=post.title,
+                           text=post.content)
 
 
 @app.route('/login', methods=['POST'])
 def login():
     if (check_login(request.form['username'],
-            request.form['password'])):
+                    request.form['password'])):
         session['logged_in'] = True
         flash('You were logged in')
     else:
