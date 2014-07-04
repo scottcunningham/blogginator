@@ -13,14 +13,11 @@ from model.user import User
 from model.post import Post
 
 
-# Import configuration
-DATABASE = config.DATABASE_FILE
-DEBUG = config.DEBUG
-SECRET_KEY = config.SECRET_KEY
+
 
 # Boiler-plate
 app = Flask(__name__)
-app.config.from_object(__name__)
+app.config.from_object('config')
 
 
 def hash_password(password):
