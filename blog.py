@@ -1,8 +1,6 @@
-import config
 import hashlib
 import sqlalchemy
 
-from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
 from markdown import markdown
@@ -19,6 +17,7 @@ app.config.from_object('config')
 
 
 def hash_password(password):
+
     return hashlib.sha1(password).hexdigest()
 
 
@@ -32,14 +31,6 @@ def check_login(username, password):
         return True
     else:
         return False
-
-
-def connect_db():
-    return sqlite3.connect(app.config['DATABASE'])
-
-
-def init_db():
-    populate_db(app.config['DATABASE'])
 
 
 @app.before_request
@@ -58,7 +49,6 @@ def teardown_request(exception):
 @app.route('/', methods=['GET', 'POST'])
 def show_entries():
     posts = g.session.query(Post).order_by(Post.date.desc())
-    #return render_template('show_entries.html', entries=entries)
     return render_template('posts.html', entries=posts)
 
 
